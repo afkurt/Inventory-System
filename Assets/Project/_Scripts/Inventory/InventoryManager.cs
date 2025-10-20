@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,11 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryItemPrefab;
 
 
+    [Header("UI - Grid Controls")]
+    public TextMeshProUGUI rowsText;
+    public TextMeshProUGUI columnsText;
+
+
     private void Awake()
     {
         Instance = this;
@@ -30,6 +36,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         CreateSlots();
+        UpdateUIText();
     }
     public void CreateSlots()
     {
@@ -138,5 +145,23 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void OnRowsSliderChanged(float value)
+    {
+        rows = Mathf.RoundToInt(value);
+        UpdateUIText();
+    }
+
+    public void OnColumnsSliderChanged(float value)
+    {
+        columns = Mathf.RoundToInt(value);
+        UpdateUIText();
+    }
+
+    private void UpdateUIText()
+    {
+        rowsText.text = $"{rows}";
+        columnsText.text = $"{columns}";
     }
 }
