@@ -79,8 +79,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (eventData.button != PointerEventData.InputButton.Right) return;
 
-        if(InventoryManager.ChestManager.isChestOpen && 
-            InventoryManager.ChestManager.ChestUI.transform.localScale == Vector3.one)   // chest açýksa
+        if(InventoryManager.ChestManager.isChestOpen)   // chest açýksa
         {
             AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);
             if (CurrentOwner == OwnerType.Player) // oyuncudan chest'e gönder

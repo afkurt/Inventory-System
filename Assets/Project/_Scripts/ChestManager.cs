@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class ChestManager : MonoBehaviour, IInteractable
     public Animator ChestAnimator;
     public Animator ChestUIAnimator;
     public AudioManager AudioManager;
+    
 
     public bool isChestOpen = false;
 
@@ -33,12 +35,16 @@ public class ChestManager : MonoBehaviour, IInteractable
         {
             AudioManager.PlaySound(AudioManager.ChestOpeningClip);
             ChestUI.SetActive(true);
-            isChestOpen = true;
             ChestUIAnimator.SetTrigger("Open");
             ChestAnimator.SetTrigger("Open");
+            StartCoroutine(WaitForAnimation());
             
         }
     }
-    
 
+    private IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(1f);
+        isChestOpen = true;
+    }
 }

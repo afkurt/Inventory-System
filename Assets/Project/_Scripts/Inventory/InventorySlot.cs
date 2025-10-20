@@ -10,8 +10,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
     [SerializeField] public GameObject SelectedUI;
 
     public OwnerType CurrentOwner;
-    
-    
+
+
     public void OnDrop(PointerEventData eventData)
     {
         InventoryItem droppedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
@@ -20,20 +20,19 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
         {
             AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);
             droppedItem.ParentAfterDrag = _itemTransform;
-            if(CurrentOwner != droppedItem.CurrentOwner)
+            if (CurrentOwner != droppedItem.CurrentOwner)
             {
                 droppedItem.CurrentOwner = CurrentOwner;
-                
             }
-           
+
         }
         else
         {
             InventoryItem existingItem = _itemTransform.GetComponentInChildren<InventoryItem>();
 
-            if (existingItem.ItemData == droppedItem.ItemData  && existingItem.ItemData.isStacklable) //ayný itemse
+            if (existingItem.ItemData == droppedItem.ItemData && existingItem.ItemData.isStacklable) //ayný itemse
             {
-                int remainingItemCount =  existingItem.AddItemCount(droppedItem.Count);
+                int remainingItemCount = existingItem.AddItemCount(droppedItem.Count);
                 AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);
                 if (remainingItemCount > 0)
                 {
@@ -53,14 +52,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
                 existingItem.transform.SetParent(tempParent);
                 existingItem.ParentAfterDrag = tempParent;
 
-                droppedItem.ParentAfterDrag = _itemTransform ;
+                droppedItem.ParentAfterDrag = _itemTransform;
             }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(_itemTransform.childCount != 0)
+        if (_itemTransform.childCount != 0)
         {
             SelectedUI.gameObject.SetActive(true);
         }

@@ -38,7 +38,6 @@ SpriteAtlas:
     - {fileID: 21300000, guid: b557b2a09cc835a45a63c2bbae50493b, type: 3}
     - {fileID: 21300000, guid: ff210edab2d747d468ac5a1645ab1a28, type: 3}
     - {fileID: 21300000, guid: fa67df0a357060947adbd622d39c2f7e, type: 3}
-    - {fileID: 21300000, guid: 2ad8526f7fbe52f4c8e8b0a4c3f1b32e, type: 3}
     - {fileID: 21300000, guid: 7809863cc2b09954bbe94955bc761b80, type: 3}
     - {fileID: 21300000, guid: 2ef9b80a61d05a54fbe87e8aec801f16, type: 3}
     - {fileID: 21300000, guid: 49b8e0b230d62df4885bd67e04833417, type: 3}
@@ -58,7 +57,6 @@ SpriteAtlas:
     - f05f04db453ef6e44813e5a95a6f2305: 21300000
     - 7809863cc2b09954bbe94955bc761b80: 21300000
     - 5cef844f0c18aa54cb5e1e37a51b6a58: 21300000
-    - 2ad8526f7fbe52f4c8e8b0a4c3f1b32e: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: b557b2a09cc835a45a63c2bbae50493b, type: 3}
@@ -71,7 +69,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f05f04db453ef6e44813e5a95a6f2305, type: 3}
   - {fileID: 21300000, guid: 7809863cc2b09954bbe94955bc761b80, type: 3}
   - {fileID: 21300000, guid: 5cef844f0c18aa54cb5e1e37a51b6a58, type: 3}
-  - {fileID: 21300000, guid: 2ad8526f7fbe52f4c8e8b0a4c3f1b32e, type: 3}
   m_PackedSpriteNamesToIndex:
   - Watermelon1
   - ItemSlot_Selected
@@ -83,7 +80,6 @@ SpriteAtlas:
   - Axe3
   - ItemSlot_BG
   - Sword1_1_2
-  - Inventory_Border
   m_RenderDataMap: {}
   m_Tag: InventoryAtlas
   m_IsVariant: 0
