@@ -38,7 +38,6 @@ public class ChestManager : MonoBehaviour, IInteractable
             ChestUIAnimator.SetTrigger("Open");
             ChestAnimator.SetTrigger("Open");
             StartCoroutine(WaitForAnimation());
-            
         }
     }
 

@@ -25,8 +25,6 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-
     }
 
     private void Start()
@@ -51,12 +49,11 @@ public class InventoryManager : MonoBehaviour
             InventorySlot slot = newSlot.GetComponent<InventorySlot>();
             InventorySlots[i] = slot;
         }
-
     }
 
     public bool AddItem(ItemData itemData) 
     {
-        for (int i = 0; i < InventorySlots.Length; i++) //ayný olan slotu bull
+        for (int i = 0; i < InventorySlots.Length; i++) //Find an existing slot with the same item
         {
             InventorySlot slot = InventorySlots[i];
             InventoryItem ItemInInventory = slot.GetComponentInChildren<InventoryItem>();
@@ -72,7 +69,7 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-        for (int i = 0; i < InventorySlots.Length; i++)    //boþ olan slotu bul
+        for (int i = 0; i < InventorySlots.Length; i++)    //Find an empty slot
         {
             InventorySlot slot = InventorySlots[i];
             InventoryItem itemInInventory = slot.GetComponentInChildren<InventoryItem>();
@@ -81,12 +78,11 @@ public class InventoryManager : MonoBehaviour
                 SpawnNewItem(itemData, slot._itemTransform);
                 return true;
             }
-
         }
         return false;
     }
 
-    private void SpawnNewItem(ItemData itemData, Transform ItemTransform) // bulduðun boþluða yeni obje yarat
+    private void SpawnNewItem(ItemData itemData, Transform ItemTransform) // Create a new item in the empty slot
     {
         GameObject newItemGo = Instantiate(InventoryItemPrefab, ItemTransform.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
@@ -96,13 +92,10 @@ public class InventoryManager : MonoBehaviour
     internal void MoveItem(InventoryItem ItemtoMove, OwnerType TargetInventory)
     {
         InventorySlot[] TargetSlots = TargetInventory == OwnerType.Player ? InventorySlots : ChestManager.ChestSlots;
-
         Debug.Log(TargetSlots[0], TargetSlots[0].gameObject);
-        
 
-        foreach (var slot in TargetSlots)  // aynýsý var mý ara
+        foreach (var slot in TargetSlots)  //Search for an existing stack of the same item
         {
-           
             InventoryItem IteminSlot = slot.GetComponentInChildren<InventoryItem>();
             
             if (IteminSlot != null &&
@@ -126,7 +119,7 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        foreach (var slot in TargetSlots)  // boþ slotu ara
+        foreach (var slot in TargetSlots)  // Search for an empty slot
         {
             InventoryItem IteminSlot = slot.GetComponentInChildren<InventoryItem>();
             if (IteminSlot == null)
@@ -145,7 +138,5 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("Inventory is Full");
-            
     }
 }

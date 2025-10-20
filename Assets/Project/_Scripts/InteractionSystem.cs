@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
 {
-    public float lastInteractionTime = -999f;
-   
-    
-    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -18,11 +14,6 @@ public class InteractionSystem : MonoBehaviour
                 if(interactable != null)
                 {
                     interactable.Interact();
-                    Debug.Log("Etkileþime geçildi");
-                }
-                else
-                {
-                    Debug.Log("Boþa týkladým");
                 }
             }
         }

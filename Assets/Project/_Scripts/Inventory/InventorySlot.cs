@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
     {
         InventoryItem droppedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
 
-        if (_itemTransform.childCount == 0)  // slot boþsa
+        if (_itemTransform.childCount == 0)  // Slot is empty
         {
             AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);
             droppedItem.ParentAfterDrag = _itemTransform;
@@ -24,13 +24,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
             {
                 droppedItem.CurrentOwner = CurrentOwner;
             }
-
         }
         else
         {
             InventoryItem existingItem = _itemTransform.GetComponentInChildren<InventoryItem>();
 
-            if (existingItem.ItemData == droppedItem.ItemData && existingItem.ItemData.isStacklable) //ayný itemse
+            if (existingItem.ItemData == droppedItem.ItemData && existingItem.ItemData.isStacklable) //Same item
             {
                 int remainingItemCount = existingItem.AddItemCount(droppedItem.Count);
                 AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);
@@ -45,7 +44,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, 
                     Destroy(droppedItem.gameObject);
                 }
             }
-            else   // farklý itemse 
+            else   // different item
             {
                 Transform tempParent = droppedItem.ParentAfterDrag;
                 AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);

@@ -7,6 +7,4 @@ public class CursorManager : MonoBehaviour
     {
         Cursor.SetCursor(newCursor, Vector2.zero, CursorMode.Auto);
     }
-
-    
 }

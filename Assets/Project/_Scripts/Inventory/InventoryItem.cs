@@ -13,21 +13,19 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public TextMeshProUGUI CountText;
 
     public OwnerType CurrentOwner;
-
     public InventoryManager InventoryManager;
-
-    
+    public AudioManager AudioManager;
 
     [HideInInspector] public ItemData ItemData;
     [SerializeField] public int Count = 1;
     [HideInInspector] public Transform ParentAfterDrag;
 
-
     private void Start()
     {
         InventoryManager = InventoryManager.Instance;
+        AudioManager = AudioManager.Instance;
     }
-    public void InitialiseItem(ItemData newItem)    //scripte item datayý ver
+    public void InitialiseItem(ItemData newItem)    //Assign the item data to this script
     {
         ItemData = newItem;
         image.sprite = newItem.icon;
@@ -59,9 +57,9 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnBeginDrag(PointerEventData eventData)
     {
         ParentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);   // Parenti canvas yap
-        transform.SetAsLastSibling(); // hierarchy de en alta getir
-        image.raycastTarget = false;  // item tutulduktan sonra mouse ile algýlanmasýn
+        transform.SetParent(transform.root);   // Set parent to Canvas
+        transform.SetAsLastSibling(); // Bring this item to the bottom of the hierarchy
+        image.raycastTarget = false;  // Disable raycast so it doesn't block other UI while dragging
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -71,7 +69,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(ParentAfterDrag);  // Eski parenti getir
+        transform.SetParent(ParentAfterDrag);  // Restore original parent
         image.raycastTarget = true;
     }
 
@@ -79,27 +77,25 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (eventData.button != PointerEventData.InputButton.Right) return;
 
-        if(InventoryManager.ChestManager.isChestOpen)   // chest açýksa
+        if(InventoryManager.ChestManager.isChestOpen)   // If chest is open
         {
-            AudioManager.Instance.PlaySound(AudioManager.Instance.ItemMoveClip);
-            if (CurrentOwner == OwnerType.Player) // oyuncudan chest'e gönder
+            AudioManager.PlaySound(AudioManager.ItemMoveClip);
+            if (CurrentOwner == OwnerType.Player) // Move item from Player to Chest
             {
                 InventoryManager.MoveItem(this, OwnerType.Chest);
-                Debug.Log(" Oyuncudan cheste gönderiyorum");
                 return;
             }
-            else if (CurrentOwner == OwnerType.Chest)  // chestten oyuncuya gönder
+            else if (CurrentOwner == OwnerType.Chest)  // Move item from Chest to Player
             {
                 InventoryManager.MoveItem(this, OwnerType.Player);
-                Debug.Log(" Chestten Oyuncuya gönderiyorum");
                 return;
             }
         }
-        else  //chest kapalýysa
+        else  //If chest is closed
         {
             if (ItemData.isStacklable)
             {
-                AudioManager.Instance.PlaySound(AudioManager.Instance.ItemUseClip);
+                AudioManager.PlaySound(AudioManager.ItemUseClip);
                 Count--;
                 RefreshCount();
                 if (Count == 0) Destroy(gameObject);
