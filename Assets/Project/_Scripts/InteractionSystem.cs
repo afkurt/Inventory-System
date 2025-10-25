@@ -8,7 +8,7 @@ public class InteractionSystem : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(ray, out RaycastHit hit)) // burayý tam anlamadým
+            if(Physics.Raycast(ray, out RaycastHit hit)) 
             {
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if(interactable != null)
